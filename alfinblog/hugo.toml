@@ -12,14 +12,32 @@ pygmentsUseClasses = false
   logo = "img/pfp.jpg"
   favicon = "img/favicon.ico"
   commit = false
-  rss = true
-  comments = true
+  rss = false
+  comments = false
   readingTime = false
   wordCount = false
   useHLJS = false
   socialShare = true
   delayDisqus = true
   showRelatedPosts = true
+  hideAuthor= true  
+
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    noHl = false
+    style = 'base16-snazzy'
+    tabWidth = 2
 
 [author]
 name = "Alfin Joseph"

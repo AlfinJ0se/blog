@@ -2,6 +2,7 @@
 title = 'päääd - Hack.lu CTF 2023 '
 date = 2024-05-26T13:07:55+05:30
 draft = true
+tags = ["writeups"]
 +++
 
 **tl;dr**
@@ -14,7 +15,7 @@ draft = true
 
 **No. of solves**: 5
 
-## Initial analysis
+## 🔎 Initial analysis
 
 We are given the application source code and a challenge link. Also there is a ``bot.js`` for the admin bot. So it was some client side challenge. Looking at the application,  its main functionality was to create pads (basically notes ) and view them. There was html and markdown allowed in the contents of the pad.
 
@@ -134,7 +135,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 
 here it is taking the id from `` req.subdomains[0] `` and fetching the pad from the database with that id . so anyone with that unique id can view the contents of the pad, since there are no checks.
 
-## Attack plan
+## 🥷 Attack plan
 
 So if we can manage to somehow get the admin pads unique_id , we can access his pad. So the idea is to somehow leak this unique subdomain. There is another feature of this application that I found interesting, that allows you to view the latest note created by a user.
 
@@ -160,7 +161,7 @@ Basically, if we visit the endpoint ``/p/latest`` with the cookie latest, it wil
 
 The initial plan is to use csp violations to leak the subdomain. So to do that we have to first redirect the bot to our attacker's website. Since ``.setHTML()`` allows meta tags we can use a meta redirect to our attacker controlled website .
 
-## CSP violation leak
+## CSP violation leak 🌟
 
 
 
@@ -169,7 +170,7 @@ If we put ``https://xn--pd-viaaa.space/p/latest `` in an iframe and then add a c
 So using this technique we can leak the unique_id .
 
 
-## CSRF to make the note public 
+## CSRF to make the note public 🌟 
 After getting the unique id there is still one more problem to solve. The admins pad is not public, so we can't access it directly due to this check.
 
 ```js 
@@ -200,7 +201,7 @@ So we just have to make the admin send a get request using ?edit=isPublic to mak
 
 To overcome this we can run the bot twice, the first time to leak the unique_id and the next time with a pad that has a meta redirect to ``unique_id.xn--pd-viaaa.space?edit=isPublic`` to make the note public.
 
-## Final Payloads
+## 🚀  Final Payloads
 
 ``First pad``
 ```html
@@ -236,6 +237,6 @@ To overcome this we can run the bot twice, the first time to leak the unique_id 
 <!-- to make pad public-->
 <meta http-equiv="refresh" content="1; url=unique_id.xn--pd-viaaa.space?edit=isPublic">
 ```
-## Flag
+## 🚩 Flag
 
 ``flag{hmmmmmmmmmXDD} ``

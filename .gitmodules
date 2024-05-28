@@ -1,3 +1,7 @@
 [submodule "alfinblog/themes/beautifulhugo"]
 	path = alfinblog/themes/beautifulhugo
 	url = https://github.com/halogenica/beautifulhugo.git
+[submodule "alfinblog/public"]
+	path = alfinblog/public
+	url = https://github.com/AlfinJ0se/Alfinj0se.github.io.git
+	branch = main
